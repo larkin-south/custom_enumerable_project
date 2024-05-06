@@ -48,12 +48,33 @@ module Enumerable
 
   def my_count
     i = 0
-    return i == self.length unless block_given?
-
-    until i == self.length
-      i += 1 if yield self[i]
+    count = 0
+    return (self.index(self[-1]) + 1) unless block_given?
+    until i > self.index(self[-1])
+      count += 1 if yield self[i]
+      i += 1
     end
-    i
+    count
+  end
+
+  def my_map
+    i = 0
+    new_array = []
+    until i == self.length
+      new_array.push(yield self[i])
+      i += 1
+    end
+    new_array
+  end
+
+  def my_inject(start_value)
+    i = 0
+    acc = start_value
+    until i == self.length
+      acc = yield(acc, self[i])
+      i += 1
+    end
+    acc
   end
 end
 
