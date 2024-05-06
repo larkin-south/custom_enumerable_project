@@ -13,12 +13,27 @@ module Enumerable
     i = 0
     filter = []
     until i == self.length
-      if (yield self[i])
-        filter << self[i]
-      end
+      filter << self[i] if yield self[i]
       i += 1
     end
     filter
+  end
+
+  def my_all?
+    i = 0
+    match = []
+    until i == self.length
+      match << self[i] if yield self[i]
+      i += 1
+    end
+    match == self
+  end
+
+  def my_any?
+    i = 0
+    until i == self.length
+      return true if yield self[i]
+    end
   end
 end
 
