@@ -35,6 +35,26 @@ module Enumerable
       return true if yield self[i]
     end
   end
+
+  def my_none?
+    i = 0
+    until i == self.length
+      return false if yield self[i]
+
+      i += 1
+    end
+    true
+  end
+
+  def my_count
+    i = 0
+    return i == self.length unless block_given?
+
+    until i == self.length
+      i += 1 if yield self[i]
+    end
+    i
+  end
 end
 
 # You will first have to define my_each
